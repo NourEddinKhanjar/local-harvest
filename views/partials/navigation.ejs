@@ -1,0 +1,32 @@
+<nav class="main-nav">
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li class="dropdown"> <!-- This li is the relative positioning context -->
+            <a href="#" class="dropbtn">Categories</a> <!-- The trigger link -->
+            <div class="dropdown-content"> <!-- This div is absolutely positioned -->
+                <% if (typeof categories !== 'undefined' && categories.length > 0) { %>
+                    <% categories.forEach(function(category) { %>
+                        <a href="/category/<%= encodeURIComponent(category) %>"><%= category %></a>
+                    <% }); %>
+                <% } else { %>
+                    <!-- Fallback if categories array is empty or undefined -->
+                    <span class="no-categories-message">No categories defined</span>
+                <% } %>
+            </div>
+        </li>
+
+        <!-- Other navigation items -->
+        <% if (currentUser) { %>
+            <li><a href="/producer/dashboard">Dashboard</a></li>
+            <li><a href="/auth/logout">Logout (<%= currentUser.name.split(' ')[0] %>)</a></li>
+        <% } else { %>
+            <li><a href="/auth/login">Producer Login</a></li>
+            <li><a href="/auth/register">Producer Register</a></li>
+        <% } %>
+    </ul>
+
+    <form action="/search" method="GET" class="search-form">
+        <input type="search" name="q" placeholder="Search products..." aria-label="Search products">
+        <button type="submit">Search</button>
+    </form>
+</nav>

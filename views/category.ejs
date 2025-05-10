@@ -1,0 +1,35 @@
+<%- include('partials/header', { title: title }) %>
+
+<section class="page-intro">
+    <h2>Products in: <%= categoryName %></h2>
+</section>
+
+<section class="product-grid">
+    <% if (products && products.length > 0) { %>
+        <div class="grid">
+            <% products.forEach(function(product) { %>
+                <article class="product-card">
+                    <% if (product.image_filename) { %>
+                        <img src="/uploads/<%= product.image_filename %>" alt="<%= product.name %>" class="product-image-thumbnail">
+                    <% } else { %>
+                        <div class="product-image-placeholder">No Image</div>
+                    <% } %>
+                    <h4><a href="/product/<%= product.id %>"><%= product.name %></a></h4>
+                    <p class="product-price">Price: <%= typeof product.price === 'number' ? product.price.toFixed(2) : product.price %></p>
+                    <p class="product-location">Location: <%= product.producer_location %></p>
+                    <p class="product-seller">Seller: <%= product.producer_name %></p>
+                    <div class="contact-seller">
+                        <strong>Call/SMS Seller:</strong>
+                        <a href="tel:<%= product.producer_phone %>"><%= product.producer_phone %></a>
+                        <a href="sms:<%= product.producer_phone %>?body=Hi, I am interested in your product: <%= encodeURIComponent(product.name) %>" class="sms-button">SMS</a>
+                    </div>
+                </article>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p>No products found in this category.</p>
+    <% } %>
+</section>
+<p><a href="/">Back to Homepage</a></p>
+
+<%- include('partials/footer') %>

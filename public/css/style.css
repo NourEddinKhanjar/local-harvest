@@ -1,0 +1,591 @@
+/* Basic Reset & Defaults */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    font-size: 16px; /* Base font size for mobile */
+}
+
+.container {
+    width: 95%;
+    max-width: 1100px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 10px;
+}
+
+a {
+    color: #007bff; /* A clear, accessible blue */
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header & Navigation */
+.site-header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+.site-header h1 a {
+    color: #fff;
+    font-size: 1.8rem;
+}
+
+.main-nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+.main-nav ul li {
+    margin: 0.5rem;
+}
+.main-nav ul li a {
+    color: #fff;
+    padding: 0.5rem 0.8rem;
+    display: block;
+}
+.main-nav ul li a:hover, .main-nav ul li a.active {
+    background: #555;
+    border-radius: 4px;
+}
+
+/* Dropdown for Categories */
+/* ======== Dropdown for Categories START ======== */
+.main-nav ul li.dropdown {
+    position: relative; /* Establishes a positioning context for the dropdown-content */
+    display: inline-block; /* Allows it to sit alongside other li elements */
+}
+
+.main-nav ul li.dropdown .dropbtn {
+    /* Inherits general styling from .main-nav ul li a */
+    /* You can add specific styles here if needed, e.g., a dropdown arrow */
+    cursor: pointer; /* Indicate it's clickable/interactive */
+}
+
+.main-nav ul li.dropdown .dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute; /* Positioned relative to the li.dropdown parent */
+    background-color: #ffffff; /* Clear white background */
+    min-width: 200px; /* Or adjust as needed for your category names */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Standard shadow for depth */
+    z-index: 100; /* High z-index to ensure it appears above other content */
+    border: 1px solid #ddd; /* A light border for definition */
+    border-radius: 4px;
+    top: 100%; /* Position it directly below the parent li */
+    left: 0; /* Align with the left edge of the parent li */
+    margin-top: 1px; /* Tiny gap, can be 0 if preferred */
+}
+
+/* Show the dropdown menu on hover of the li.dropdown */
+.main-nav ul li.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Styling for links within the dropdown */
+.main-nav ul li.dropdown .dropdown-content a {
+    color: #333333; /* Dark text for readability on white background */
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block; /* Each link takes full width */
+    text-align: left; /* Align text to the left */
+    white-space: nowrap; /* Prevent long category names from wrapping harshly */
+}
+
+.main-nav ul li.dropdown .dropdown-content a:hover {
+    background-color: #f0f0f0; /* Light grey background on hover for dropdown items */
+    color: #007bff; /* Optional: change text color on hover */
+}
+
+/* Styling for the "No categories defined" message */
+.main-nav ul li.dropdown .dropdown-content .no-categories-message {
+    color: #777777; /* Grey text for the notice */
+    padding: 10px 15px;
+    display: block;
+    text-align: left;
+    font-style: italic;
+}
+
+/* ======== Dropdown for Categories END ======== */
+
+/*
+   IMPORTANT: Ensure parent containers do not clip the dropdown.
+   Add 'overflow: visible;' to these if you still face issues
+   where the dropdown seems cut off.
+*/
+.site-header .container,
+.main-nav,
+.main-nav ul {
+    overflow: visible !important; /* Crucial to prevent clipping absolutely positioned children */
+}
+
+
+/* Search Form in Nav */
+.search-form {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+.search-form input[type="search"] {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px 0 0 4px;
+    min-width: 150px; /* Minimum width for usability */
+}
+.search-form button {
+    padding: 0.5rem 1rem;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Main Content Area */
+main.container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #fff;
+    min-height: 70vh; /* Ensure footer is pushed down */
+}
+
+/* Alerts / Flash Messages */
+.alert {
+    padding: 0.8rem;
+    margin: 1rem 0;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.alert-error, .alert-danger { /* .alert-danger for bootstrap compat */
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+.alert-error ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+
+/* Page Intro Sections */
+.page-intro {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.page-intro h2 {
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+}
+
+/* Product Grid & Cards */
+.product-grid h3 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+.grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Mobile: 1 column */
+    gap: 20px;
+}
+.product-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center; /* Center content in card */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.product-card h4 {
+    margin: 10px 0 5px 0;
+    font-size: 1.2rem;
+}
+.product-card h4 a {
+    color: #333;
+}
+.product-card p {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: #555;
+}
+.product-price {
+    font-weight: bold;
+    color: #007bff !important; /* Make price stand out */
+}
+.product-image-thumbnail {
+    max-width: 100%;
+    height: 150px; /* Fixed height, object-fit handles aspect ratio */
+    object-fit: cover;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+.product-image-placeholder {
+    width: 100%;
+    height: 150px;
+    background-color: #e9e9e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 0.9em;
+    border-radius: 3px;
+    margin-bottom: 10px;
+}
+.contact-seller {
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+.contact-seller strong {
+    display: block; /* Makes "Call/SMS Seller:" appear on its own line */
+    margin-bottom: 3px;
+}
+.contact-seller a {
+    display: inline-block; /* Allows spacing */
+    margin: 3px 5px;
+    padding: 5px 8px;
+    border: 1px solid #007bff;
+    border-radius: 3px;
+    background-color: #e7f3ff;
+}
+.contact-seller a.sms-button {
+    border-color: #28a745; /* Green for SMS */
+    background-color: #eaf6ec;
+}
+.contact-seller a:hover {
+    background-color: #d0e7ff;
+}
+.contact-seller a.sms-button:hover {
+    background-color: #d3edd9;
+}
+
+
+/* Product Detail Page */
+.product-detail-view {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+.product-detail-view h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+.product-image-large {
+    max-width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-height: 400px; /* Limit max height */
+    display: block;
+    margin: 0 auto 20px auto; /* Center image */
+    border-radius: 4px;
+    border: 1px solid #eee;
+}
+.product-image-placeholder-large {
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    background-color: #e9e9e9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    font-size: 1em;
+    border-radius: 4px;
+    margin: 0 auto 20px auto;
+}
+.product-info p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+.product-info strong {
+    color: #333;
+}
+.contact-seller-prominent {
+    margin-top: 25px;
+    padding: 15px;
+    background-color: #e7f3ff;
+    border: 1px solid #b3d7ff;
+    border-radius: 5px;
+    text-align: center;
+}
+.contact-seller-prominent h3 {
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+.contact-seller-prominent .phone-number a,
+.contact-seller-prominent .sms-link a {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    margin: 5px;
+    text-decoration: none;
+}
+.contact-seller-prominent .sms-link a {
+    background-color: #28a745; /* Green for SMS */
+}
+.contact-seller-prominent .phone-number a:hover,
+.contact-seller-prominent .sms-link a:hover {
+    opacity: 0.9;
+}
+.communication-note {
+    font-size: 0.85rem;
+    color: #555;
+    margin-top: 10px;
+}
+
+
+/* Forms (Registration, Login, Product Form) */
+.form-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    max-width: 500px; /* Limit width for better readability on larger screens */
+    margin: 20px auto;
+}
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group input[type="password"],
+.form-group input[type="number"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+.form-group input[type="file"] {
+    padding: 5px; /* File inputs are styled differently by browsers */
+}
+.form-group textarea {
+    resize: vertical; /* Allow vertical resize, not horizontal */
+}
+
+.btn {
+    display: inline-block;
+    background: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+    margin-right: 5px; /* Spacing for multiple buttons */
+}
+.btn:hover {
+    background: #0056b3;
+    color: #fff; /* Ensure text color remains white on hover */
+    text-decoration: none;
+}
+.btn-primary { /* Already default, but can be explicit */
+    background: #007bff;
+}
+.btn-secondary {
+    background: #6c757d;
+}
+.btn-secondary:hover {
+    background: #545b62;
+}
+.btn-danger {
+    background: #dc3545;
+}
+.btn-danger:hover {
+    background: #c82333;
+}
+.btn-sm {
+    padding: 6px 12px;
+    font-size: 0.875rem;
+}
+
+
+/* Producer Dashboard */
+.producer-dashboard {
+    text-align: center;
+}
+.dashboard-actions {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+.dashboard-actions li {
+    margin-bottom: 10px;
+}
+.dashboard-actions .btn {
+    width: 100%;
+    max-width: 300px; /* Max width for buttons */
+}
+
+
+/* Manage Products Table */
+.manage-products-container h2 {
+    margin-bottom: 15px;
+}
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.9rem; /* Smaller font for table data */
+}
+.products-table th, .products-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    vertical-align: middle;
+}
+.products-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+.products-table td .btn {
+    margin-right: 5px;
+    margin-bottom: 5px; /* For stacked buttons on small screens */
+}
+
+/* Static Pages */
+.static-page {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+.static-page h2 {
+    margin-bottom: 15px;
+}
+.static-page h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.static-page p, .static-page li {
+    margin-bottom: 10px;
+}
+.static-page ul, .static-page ol {
+    margin-left: 20px;
+}
+
+/* Error Page */
+.error-page {
+    text-align: center;
+    padding: 30px;
+}
+
+/* Footer */
+.site-footer {
+    background: #333;
+    color: #bbb;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-top: 30px;
+    font-size: 0.9rem;
+}
+.site-footer p {
+    margin-bottom: 0.5rem;
+}
+.footer-nav a {
+    color: #bbb;
+    margin: 0 5px;
+}
+.footer-nav a:hover {
+    color: #fff;
+}
+
+
+/* Responsive Adjustments (Mobile-First approach, so these are for larger screens) */
+
+/* Tablet and Small Desktops */
+@media (min-width: 600px) {
+    body {
+        font-size: 17px; /* Slightly larger base font */
+    }
+    .site-header {
+        text-align: left;
+    }
+    .main-nav {
+        display: flex; /* Align nav items and search form horizontally */
+        justify-content: space-between;
+        align-items: center;
+    }
+    .main-nav ul {
+        margin-top: 0; /* Reset margin for horizontal layout */
+        justify-content: flex-start;
+    }
+    .search-form {
+        margin-top: 0; /* Reset margin for horizontal layout */
+        justify-content: flex-end; /* Push to right */
+    }
+    .search-form input[type="search"] {
+        min-width: 200px;
+    }
+    .grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns */
+    }
+    .products-table {
+        font-size: 1rem; /* Restore normal font size for table */
+    }
+}
+
+/* Larger Desktops */
+@media (min-width: 900px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    }
+    .product-detail-view {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Image on one side, info on other */
+        gap: 30px;
+        align-items: flex-start;
+    }
+    .product-image-large, .product-image-placeholder-large {
+        grid-column: 1 / 2; /* Image takes first column */
+        margin: 0; /* Reset auto margin */
+    }
+    .product-info {
+        grid-column: 2 / 3; /* Info takes second column */
+    }
+    .contact-seller-prominent {
+        grid-column: 1 / -1; /* Span both columns */
+    }
+}
+
+@media (min-width: 1100px) {
+    .grid {
+        grid-template-columns: repeat(4, 1fr); /* 4 columns for very wide screens */
+    }
+}

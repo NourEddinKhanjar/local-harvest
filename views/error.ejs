@@ -1,0 +1,9 @@
+<%- include('partials/header', { title: title || "Error" }) %>
+
+<div class="error-page">
+    <h2><%= title || "An Error Occurred" %></h2>
+    <p><%= message || "Sorry, something went wrong. Please try again later or contact support if the problem persists." %></p>
+    <p><a href="/">Go to Homepage</a></p>
+</div>
+
+<%- include('partials/footer') %>

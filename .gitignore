@@ -1,0 +1,5 @@
+node_modules/
+.env
+local_harvest.sqlite
+local_harvest.sqlite-journal
+public/uploads/

@@ -1,0 +1,45 @@
+<%- include('../partials/header', { title: title }) %>
+
+<div class="form-container">
+    <h2><%= title %></h2>
+    <form action="<%= formAction %>" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Product Name:</label>
+            <input type="text" id="name" name="name" value="<%= product.name || '' %>" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Short Description (max 250 chars):</label>
+            <textarea id="description" name="description" rows="4" maxlength="250"><%= product.description || '' %></textarea>
+        </div>
+        <div class="form-group">
+            <label for="price">Price (Local Currency):</label>
+            <input type="number" id="price" name="price" step="any" value="<%= product.price || '' %>" required>
+        </div>
+        <div class="form-group">
+            <label for="quantity_available">Quantity Available (e.g., "10 kg", "5 units", "Available"):</label>
+            <input type="text" id="quantity_available" name="quantity_available" value="<%= product.quantity_available || 'Available' %>">
+        </div>
+        <div class="form-group">
+            <label for="category">Category:</label>
+            <select id="category" name="category" required>
+                <option value="">-- Select Category --</option>
+                <% categories.forEach(function(cat) { %>
+                    <option value="<%= cat %>" <%= (product.category === cat) ? 'selected' : '' %>><%= cat %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="productImage">Product Photo (Optional, max 5MB):</label>
+            <input type="file" id="productImage" name="productImage" accept="image/*">
+            <% if (product && product.image_filename) { %>
+                <p>Current image: <img src="/uploads/<%= product.image_filename %>" alt="Current product image" style="max-width: 100px; max-height: 100px; margin-top: 5px;"></p>
+                <input type="hidden" name="currentImage" value="<%= product.image_filename %>">
+            <% } %>
+        </div>
+
+        <button type="submit" class="btn"><%= product.id ? 'Update Product' : 'Add Product' %></button>
+        <a href="/producer/products" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,13 @@
+<%- include('../partials/header', { title: title }) %>
+
+<div class="producer-dashboard">
+    <h2>Welcome, <%= currentUser.name %>!</h2>
+    <p>This is your Producer Dashboard. From here you can manage your products.</p>
+
+    <ul class="dashboard-actions">
+        <li><a href="/producer/products/add" class="btn btn-primary">Add New Product</a></li>
+        <li><a href="/producer/products" class="btn">View/Manage My Products</a></li>
+    </ul>
+</div>
+
+<%- include('../partials/footer') %>
