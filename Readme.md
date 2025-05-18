@@ -1,4 +1,8 @@
 
+⚠️ Warning
+
+This project is fully built by AI
+
 ## Setup and Installation
 
 **Prerequisites:**
