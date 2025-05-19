@@ -1,49 +1,59 @@
 <%- include('partials/header', { title: title }) %>
 
-<% if (product) { %>
-    <article class="product-detail-view">
-        <h2><%= product.name %></h2>
+<div class="py-6 md:py-8">
+    <a href="/" class="inline-flex items-center px-4 py-2 mb-6 text-sm font-medium text-indigo-600 bg-indigo-100 hover:bg-indigo-200 rounded-lg shadow-sm transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 mr-2">
+            <path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd" />
+        </svg>
+        Back to Homepage
+    </a>
 
-        <% if (product.image_filename) { %>
-            <img src="/uploads/<%= product.image_filename %>" alt="<%= product.name %>" class="product-image-large">
-        <% } else { %>
-            <div class="product-image-placeholder-large">No Image Available</div>
-        <% } %>
+    <% if (product) { %>
+        <article class="bg-white shadow-xl rounded-lg p-6 md:p-8">
+            <div class="md:flex md:space-x-8">
+                <div class="md:w-1/2 mb-6 md:mb-0">
+                    <% if (product.image_filename) { %>
+                        <img src="/uploads/<%= product.image_filename %>" alt="<%= product.name %>" class="w-full h-auto max-h-[500px] object-contain rounded-lg border border-slate-200">
+                    <% } else { %>
+                        <div class="w-full h-64 md:h-96 bg-slate-200 flex items-center justify-center text-slate-500 rounded-lg">No Image Available</div>
+                    <% } %>
+                </div>
 
-        <div class="product-info">
-            <p><strong>Description:</strong> <%= product.description %></p>
-            <p><strong>Price:</strong> <%= typeof product.price === 'number' ? product.price.toFixed(2) : product.price %></p>
-            <p><strong>Quantity Available:</strong> <%= product.quantity_available %></p>
-            <p><strong>Category:</strong> <a href="/category/<%= encodeURIComponent(product.category) %>"><%= product.category %></a></p>
-            <p><strong>Location:</strong> <%= product.producer_location %></p>
-            <p><strong>Seller:</strong> <%= product.producer_name %></p>
-        </div>
+                <div class="md:w-1/2">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4"><%= product.name %></h2>
+                    <div class="space-y-3 text-slate-700">
+                        <p><strong>Description:</strong> <%= product.description %></p>
+                        <p class="text-2xl text-green-600 font-bold"><strong>Price:</strong> <%= typeof product.price === 'number' ? 'UGX ' + product.price.toFixed(2) : product.price %></p>
+                        <p><strong>Quantity Available:</strong> <%= product.quantity_available %></p>
+                        <p><strong>Category:</strong> <a href="/category/<%= encodeURIComponent(product.category) %>" class="text-indigo-600 hover:underline"><%= product.category %></a></p>
+                        <p><strong>Location:</strong> <%= product.producer_location %></p>
+                        <p><strong>Seller:</strong> <%= product.producer_name %></p>
+                    </div>
+                </div>
+            </div>
 
-        <div class="contact-seller-prominent">
-            <h3>Contact the Seller Directly:</h3>
-            <p class="phone-number">
-                <a href="tel:<%= product.producer_phone %>">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" style="vertical-align: middle; margin-right: 5px;">
-                        <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                    </svg>
-                    Call Seller: <%= product.producer_phone %>
-                </a>
-            </p>
-            <p class="sms-link">
-                <a href="sms:<%= product.producer_phone %>?body=Hi, I am interested in your product: <%= encodeURIComponent(product.name) %>">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24" style="vertical-align: middle; margin-right: 5px;">
-                        <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12zM7 9h10v2H7V9zm0 3h7v2H7v-2z"/>
-                    </svg>
-                    SMS Seller: <%= product.producer_phone %>
-                </a>
-            </p>
-            <p class="communication-note">Note: All communication and transactions happen directly between you and the seller. This website does not handle payments or delivery.</p>
-        </div>
-
-    </article>
-<% } else { %>
-    <p>Product not found.</p>
-<% } %>
-<p><a href="/">Back to Homepage</a></p>
+            <div class="mt-8 pt-6 border-t border-slate-200">
+                <h3 class="text-xl font-semibold text-slate-800 mb-4 text-center md:text-left">Contact the Seller Directly:</h3>
+                <div class="flex flex-col sm:flex-row sm:justify-center md:justify-start sm:space-x-4 space-y-3 sm:space-y-0">
+                    <a href="tel:<%= product.producer_phone %>" class="flex items-center justify-center px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-sm transition-colors text-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
+                        </svg>
+                        Call: <%= product.producer_phone %>
+                    </a>
+                    <a href="sms:<%= product.producer_phone %>?body=Hi, I am interested in your product: <%= encodeURIComponent(product.name) %>" class="flex items-center justify-center px-6 py-3 bg-green-500 hover:bg-green-700 text-white font-semibold rounded-lg shadow-sm transition-colors text-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 mr-2">
+                            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12zM7 9h10v2H7V9zm0 3h7v2H7v-2z"/>
+                        </svg>
+                        SMS: <%= product.producer_phone %>
+                    </a>
+                </div>
+                <p class="mt-6 text-sm text-slate-600 bg-yellow-50 p-3 rounded-md border border-yellow-300">Note: All communication and transactions happen directly between you and the seller. This website does not handle payments or delivery.</p>
+            </div>
+        </article>
+    <% } else { %>
+        <p class="text-center text-xl text-slate-700 py-10">Product not found.</p>
+    <% } %>
+</div>
 
 <%- include('partials/footer') %>

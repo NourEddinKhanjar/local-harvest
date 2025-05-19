@@ -4,26 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title ? title + ' | ' : '' %><%= siteTitle %></title>
-    <link rel="stylesheet" href="/css/style.css">
-    <!-- Consider a very simple, lightweight system font stack -->
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
-    </style>
+    <link rel="stylesheet" href="/css/style.css"> <!-- Your compiled Tailwind CSS -->
 </head>
-<body>
-<header class="site-header">
-    <div class="container">
-        <h1><a href="/"><%= siteTitle %></a></h1>
-        <%- include('navigation') %>
+<body class="bg-slate-100 text-slate-800 font-sans flex flex-col min-h-screen">
+
+<header class="bg-white shadow-sm sticky top-0 z-40">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col md:flex-row justify-between items-center py-3 md:py-4">
+            <div class="flex justify-start items-center mb-3 md:mb-0">
+                <a href="/">
+                    <h1 class="text-2xl sm:text-3xl font-bold text-indigo-600 hover:text-indigo-700 transition-colors">
+                        <%= siteTitle %>
+                    </h1>
+                </a>
+            </div>
+            <%- include('navigation') %>
+        </div>
     </div>
 </header>
-<main class="container">
-    <% if (success_msg && success_msg.length > 0) { %>
-        <div class="alert alert-success"><%= success_msg %></div>
-    <% } %>
-    <% if (error_msg && error_msg.length > 0) { %>
-        <div class="alert alert-error"><%= error_msg %></div>
-    <% } %>
-    <% if (error && error.length > 0 && typeof error !== 'object') { %> <!-- Check if 'error' is a simple string -->
-    <div class="alert alert-error"><%= error %></div>
+
+<!--
+    mainFlexCenter: Pass true if the page content should be vertically and horizontally centered (e.g., login, register pages).
+    mainFullWidth: Pass true if the main content should not be constrained by the container (e.g., for a full-width map).
+-->
+<main class="flex-grow <% if (typeof mainFullWidth === 'undefined' || !mainFullWidth) { %>container mx-auto px-4 sm:px-6 lg:px-8<% } %> py-6 md:py-8
+            <% if (typeof mainFlexCenter !== 'undefined' && mainFlexCenter) { %>flex flex-col justify-center items-center<% } %>">
+
+    <%/* Flash messages: Displayed within the container if main is not full-width */%>
+    <% if (typeof mainFullWidth === 'undefined' || !mainFullWidth) { %>
+        <% if (success_msg && success_msg.length > 0) { %>
+            <div class="w-full max-w-3xl mx-auto bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-md shadow" role="alert">
+                <p class="font-semibold">Success</p>
+                <p><%= success_msg %></p>
+            </div>
+        <% } %>
+        <% if (error_msg && error_msg.length > 0) { %>
+            <div class="w-full max-w-3xl mx-auto bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow" role="alert">
+                <p class="font-semibold">Error</p>
+                <p><%= error_msg %></p>
+            </div>
+        <% } %>
+        <% if (error && error.length > 0 && typeof error !== 'object') { %>
+            <div class="w-full max-w-3xl mx-auto bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-md shadow" role="alert">
+                <p class="font-semibold">Error</p>
+                <p><%= error %></p>
+            </div>
+        <% } %>
 <% } %>

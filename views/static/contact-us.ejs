@@ -1,13 +1,18 @@
 <%- include('../partials/header', { title: title }) %>
 
-<article class="static-page">
-    <h2><%= title %></h2>
-    <p>If you need help with the platform or have any questions, please feel free to reach out.</p>
+<article class="max-w-3xl mx-auto my-8 p-6 md:p-8 bg-white shadow-lg rounded-lg">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 pb-2 border-b border-gray-200"><%= title %></h2>
 
-    <p><strong>For general inquiries or support:</strong></p>
-    <p><%= adminContactInfo %></p>
+    <div class="prose prose-lg max-w-none text-gray-700">
+        <p>If you need help with the platform or have any questions, please feel free to reach out.</p>
 
-    <p>Please note that this contact is for issues related to the website itself. For inquiries about specific products, please contact the seller directly using the phone number provided on their product listings.</p>
+        <p><strong>For general inquiries or support:</strong></p>
+        <p><%= adminContactInfo %></p> <!-- Assuming adminContactInfo is a simple string like an email or "Email us at support@example.com" -->
+
+        <p class="mt-6 p-4 bg-blue-50 border-l-4 border-blue-500 text-blue-700 rounded-md">
+            Please note that this contact is for issues related to the website itself. For inquiries about specific products, please contact the seller directly using the phone number provided on their product listings.
+        </p>
+    </div>
 </article>
 
 <%- include('../partials/footer') %>

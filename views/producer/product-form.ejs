@@ -1,44 +1,51 @@
 <%- include('../partials/header', { title: title }) %>
 
-<div class="form-container">
-    <h2><%= title %></h2>
+<div class="max-w-xl mx-auto my-10 p-8 bg-white shadow-xl rounded-lg">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center"><%= title %></h2>
     <form action="<%= formAction %>" method="POST" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="name">Product Name:</label>
-            <input type="text" id="name" name="name" value="<%= product.name || '' %>" required>
+        <div class="mb-4">
+            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Product Name:</label>
+            <input type="text" id="name" name="name" value="<%= product.name || '' %>" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
-        <div class="form-group">
-            <label for="description">Short Description (max 250 chars):</label>
-            <textarea id="description" name="description" rows="4" maxlength="250"><%= product.description || '' %></textarea>
+        <div class="mb-4">
+            <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Short Description (max 250 chars):</label>
+            <textarea id="description" name="description" rows="4" maxlength="250" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"><%= product.description || '' %></textarea>
         </div>
-        <div class="form-group">
-            <label for="price">Price (Local Currency):</label>
-            <input type="number" id="price" name="price" step="any" value="<%= product.price || '' %>" required>
+        <div class="mb-4">
+            <label for="price" class="block text-gray-700 text-sm font-bold mb-2">Price (Local Currency):</label>
+            <input type="number" id="price" name="price" step="any" value="<%= product.price || '' %>" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
-        <div class="form-group">
-            <label for="quantity_available">Quantity Available (e.g., "10 kg", "5 units", "Available"):</label>
-            <input type="text" id="quantity_available" name="quantity_available" value="<%= product.quantity_available || 'Available' %>">
+        <div class="mb-4">
+            <label for="quantity_available" class="block text-gray-700 text-sm font-bold mb-2">Quantity Available (e.g., "10 kg", "5 units", "Available"):</label>
+            <input type="text" id="quantity_available" name="quantity_available" value="<%= product.quantity_available || 'Available' %>" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
         </div>
-        <div class="form-group">
-            <label for="category">Category:</label>
-            <select id="category" name="category" required>
+        <div class="mb-4">
+            <label for="category" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
+            <select id="category" name="category" required class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white">
                 <option value="">-- Select Category --</option>
                 <% categories.forEach(function(cat) { %>
                     <option value="<%= cat %>" <%= (product.category === cat) ? 'selected' : '' %>><%= cat %></option>
                 <% }); %>
             </select>
         </div>
-        <div class="form-group">
-            <label for="productImage">Product Photo (Optional, max 5MB):</label>
-            <input type="file" id="productImage" name="productImage" accept="image/*">
+        <div class="mb-6">
+            <label for="productImage" class="block text-gray-700 text-sm font-bold mb-2">Product Photo (Optional, max 5MB):</label>
+            <input type="file" id="productImage" name="productImage" accept="image/*" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
             <% if (product && product.image_filename) { %>
-                <p>Current image: <img src="/uploads/<%= product.image_filename %>" alt="Current product image" style="max-width: 100px; max-height: 100px; margin-top: 5px;"></p>
-                <input type="hidden" name="currentImage" value="<%= product.image_filename %>">
+                <div class="mt-2">
+                    <p class="text-sm text-gray-600">Current image:</p>
+                    <img src="/uploads/<%= product.image_filename %>" alt="Current product image" class="mt-1 max-w-[100px] max-h-[100px] rounded border border-gray-300">
+                    <input type="hidden" name="currentImage" value="<%= product.image_filename %>">
+                </div>
             <% } %>
         </div>
 
-        <button type="submit" class="btn"><%= product.id ? 'Update Product' : 'Add Product' %></button>
-        <a href="/producer/products" class="btn btn-secondary">Cancel</a>
+        <div class="flex items-center space-x-4">
+            <button type="submit" class="flex-grow bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                <%= product.id ? 'Update Product' : 'Add Product' %>
+            </button>
+            <a href="/producer/products" class="flex-grow text-center bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
+        </div>
     </form>
 </div>
 
